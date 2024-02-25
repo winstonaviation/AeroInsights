@@ -1,17 +1,38 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles2.css" />
+    <link rel="stylesheet" href="styles.css" />
     <title>AeroInsights</title>
 </head>
-
+<script>
+    $(function(){
+       $('.searchName').autocomplete({
+          source: function(req, res){
+             $.ajax({
+                url:"airportSearch/",
+                 dataType: "json",
+                 type:"GET",
+                 data:req,
+                 success: function (data){
+                   res($.map(data, function(el){
+                      return {
+                         label: el.address.cityName +', ' +  el.name + ' (' + el.iataCode +')',
+                         value: el.iataCode
+                      }
+                   }));
+                 },
+                 error: function(err){
+                   console.log(err.status);
+                 }
+             });
+          }        
+       });
+     });
+  </script>
 <body>
-
-    <body>
         <!--===========Nav Bar=================-->
         <section class="nav-bar">
             <div class="logo">AeroInsights</div>
@@ -29,16 +50,9 @@
             <div class="banner-text-item">
                 <div class="banner-heading">
                     <h1>Find Your Next Destination!</h1>
+                    <h2>Input Your Home Airport!</h2>
                 </div>
-                <form class="form"> <input type="text" list="mylist" placeholder="Where would you like to go?"> <datalist id="mylist">
-                        <option>London</option>
-                        <option>Canada</option>
-                        <option>Monaco</option>
-                        <option>France</option>
-                        <option>Japan</option>
-                        <option>Switzerland</option>
-                        <option>Seoul</option>
-                    </datalist> <input type="date" class="date"> <a href="#" class="book">book</a> </form>
+                <form class="form"> <input type="text" class="searchName" id="cityQry" placeholder="Home Airport"> <a href="#" class="book">search</a> </form>
             </div>
         </section>
         <!--=========Services===============-->
@@ -181,8 +195,5 @@
             </div>
         </div>
     </body>
-
-</html>
-</body>
 
 </html>
