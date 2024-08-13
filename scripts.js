@@ -3,8 +3,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var Amadeus = require("amadeus");
 var amadeus = new Amadeus({
-  clientId: 'anp2n0Uce9eAvtLm58Y4igIGsKnhyTTH',
-  clientSecret: '2eyrH6qJsAkMqoD5'
+  clientId: '',
+  clientSecret: ''
 });
 
 app.set("view engine", "ejs");
